@@ -1,0 +1,43 @@
+qt creator - среда разработки ninja 
+форматировать код - настроить ide(форматор)
+g++ -E cout_main.cxx  - препроцероный файл
+g++ -o cout_main.obj cout_main.cxx - создать обьектный исполняемый файл 
+objdump -d cout_main.obj -  посмотреть асемблер 
+
+ldd  cout_main.obj -> аналог на мак otool -L
+
+файловые дискрипторы
+0 input
+1 output 
+2 поток ошибки 
+
+file 
+du
+strip
+
+
+
+
+android/Sdk/ndk/toolchains/llvm/linux-x86_64
+
+из папки с проектом 
+/home loe/Android/Sdk/ndk/25.2/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android21-clang++ main.cxx
+adb
+
+adb devices 
+adb push путь откуда путь куда
+adb shell
+
+cd путь 
+
+tldr - утилита для того как пользоваться другими утилитами 
+clang-format - для форматирования файла утилита 
+
+плагин на вызов сохраниения файла форматировать его (форматор)
+
+ci/cd - docker->img - kernal t soft-> docker img 
+
+bitbucket 
+
+boost учиться с++
+столяров с++
