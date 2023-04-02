@@ -1,0 +1,10 @@
+/Users/matvejdubajlo/no_automation_qa/HW-1/2/build/CMakeFiles/edit_cache.dir
+/Users/matvejdubajlo/no_automation_qa/HW-1/2/build/CMakeFiles/rebuild_cache.dir
+/Users/matvejdubajlo/no_automation_qa/HW-1/2/build/hello_lib/CMakeFiles/hello-lib-static.dir
+/Users/matvejdubajlo/no_automation_qa/HW-1/2/build/hello_lib/CMakeFiles/hello-lib-dynamic.dir
+/Users/matvejdubajlo/no_automation_qa/HW-1/2/build/hello_lib/CMakeFiles/edit_cache.dir
+/Users/matvejdubajlo/no_automation_qa/HW-1/2/build/hello_lib/CMakeFiles/rebuild_cache.dir
+/Users/matvejdubajlo/no_automation_qa/HW-1/2/build/hello_bin/CMakeFiles/hello-bin-static.dir
+/Users/matvejdubajlo/no_automation_qa/HW-1/2/build/hello_bin/CMakeFiles/hello-bin-dynamic.dir
+/Users/matvejdubajlo/no_automation_qa/HW-1/2/build/hello_bin/CMakeFiles/edit_cache.dir
+/Users/matvejdubajlo/no_automation_qa/HW-1/2/build/hello_bin/CMakeFiles/rebuild_cache.dir

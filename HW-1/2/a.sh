@@ -5,10 +5,10 @@ cd build
 cmake -G "Ninja" .. 
 cmake  --build . 
 cd hello_bin
-echo Динамическая:
+DYNAMIC=`./hello-bin-dynamic`
+echo Динамическая: $DYNAMIC
 otool -L hello-bin-dynamic 
-./hello-bin-dynamic
 echo ===========================
-echo Статическая:
+STATIC=`./hello-bin-static`
+echo Статическая: $STATIC
 otool -L hello-bin-static 
-./hello-bin-static
