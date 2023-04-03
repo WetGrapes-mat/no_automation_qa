@@ -6,14 +6,6 @@ jobs:
     steps:
       - name: Get repository code
         uses: actions/checkout@v3
-      - name: build 1
-        run: |
-          cd HW-1/1
-          rm -R build
-          mkdir build 
-          cd build 
-          cmake .. 
-          cmake  --build .
       - name: build 2
         run: |
           cd HW-1/2
@@ -22,3 +14,5 @@ jobs:
           cd build 
           cmake .. 
           cmake  --build . 
+      - name: viw
+        run: ls
