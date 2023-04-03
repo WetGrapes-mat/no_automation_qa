@@ -9,7 +9,6 @@ jobs:
       - name: build 2
         run: |
           cd HW-1/2
-          rm -R build
           mkdir build 
           cd build 
           cmake .. 
