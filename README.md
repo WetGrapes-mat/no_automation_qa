@@ -1,4 +1,5 @@
 # Команды
+[![CI](https://github.com/WetGrapes-mat/no_automation_qa/actions/workflows/main.yml/badge.svg)]
 
 ## Аналоги команд под MacOS
 
