@@ -1,9 +1,0 @@
-# ninja log v5
-4	1356	1680470987776087901	hello_bin/CMakeFiles/hello-bin-static.dir/src/main.cxx.o	11d219af2fcd0af3
-6	1373	1680470987793577504	hello_bin/CMakeFiles/hello-bin-dynamic.dir/src/main.cxx.o	bde961f448b450d
-3	1672	1680470988091011646	hello_lib/CMakeFiles/hello-lib-dynamic.dir/src/hello_lib.cxx.o	f20c24b5f8edd94b
-2	1721	1680470988141207896	hello_lib/CMakeFiles/hello-lib-static.dir/src/hello_lib.cxx.o	166248717d073bab
-1673	1750	1680470988171872125	hello_lib/libhello-lib-dynamic.dylib	c2dbd2902d086d0a
-1721	1765	1680470988191115000	hello_lib/libhello-lib-static.a	65a1bbd896f2a3fe
-1750	1833	1680470988254458376	hello_bin/hello-bin-dynamic	aab367b7e8f13dd2
-1765	1841	1680470988264160035	hello_bin/hello-bin-static	9b982bc5d0f16a33
