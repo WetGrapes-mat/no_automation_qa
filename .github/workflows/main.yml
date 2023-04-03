@@ -7,5 +7,10 @@ jobs:
       - name: Get repository code
         uses: actions/checkout@v3
       - name: View dir
-        run: ls
-        
+        run: |
+          cd HW-1/1
+          rm -R build
+          mkdir build 
+          cd build 
+          cmake -G "Ninja" .. 
+          cmake  --build .         
