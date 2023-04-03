@@ -4,7 +4,6 @@ mkdir build
 cd build 
 cmake -G "Ninja" .. 
 cmake  --build . 
-cd hello_bin
 DYNAMIC=`./hello-bin-dynamic`
 echo Динамическая: $DYNAMIC
 otool -L hello-bin-dynamic 
