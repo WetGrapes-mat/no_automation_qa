@@ -1,17 +1,22 @@
 name: auto_build
-on:  workflow_dispatch
-jobs: 
+on: workflow_dispatch
+jobs:
   build_project:
     runs-on: ubuntu-latest
     steps:
       - name: Get repository code
         uses: actions/checkout@v3
+      - name: build 1
+        run: |
+          cd HW-1/1
+          mkdir build 
+          cd build 
+          cmake .. 
+          cmake  --build .
       - name: build 2
         run: |
           cd HW-1/2
           mkdir build 
           cd build 
           cmake .. 
-          cmake  --build . 
-      - name: viw
-        run: ls
+          cmake  --build .
