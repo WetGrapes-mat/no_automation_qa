@@ -6,11 +6,19 @@ jobs:
     steps:
       - name: Get repository code
         uses: actions/checkout@v3
-      - name: View dir
+      - name: build 1
         run: |
           cd HW-1/1
           rm -R build
           mkdir build 
           cd build 
           cmake .. 
-          cmake  --build .         
+          cmake  --build .
+      - name: build 2
+        run: |
+          cd HW-1/2
+          rm -R build
+          mkdir build 
+          cd build 
+          cmake .. 
+          cmake  --build . 
