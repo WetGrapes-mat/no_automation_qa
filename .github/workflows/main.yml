@@ -1,5 +1,5 @@
 name: auto_build
-on: push
+on: workflow_dispatch
 jobs:
   build_project:
     runs-on: ubuntu-latest
