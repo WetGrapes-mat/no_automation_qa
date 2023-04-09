@@ -41,3 +41,15 @@ bitbucket
 
 boost учиться с++
 столяров с++
+
+ld preload
+
+
+cocoa - под мак 
+
+cmake_build_type Debug 
+cmake -P cmake_uninstall.cmake
+
+gdb - 
+gdb next(n) steep(s)
+SDL_DYNAMIC_API_ENVVAR подложить персию другой длл 
