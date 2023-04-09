@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 3.22)
-project(hello_world CXX)
+cmake_minimum_required(VERSION 3.26)
+project(hello_world)
 
 add_executable(hello_world main.cxx)
 target_compile_features(hello_world PUBLIC cxx_std_20)

@@ -8,8 +8,16 @@
 
 Просмотр зависимостей:
 
-- ldd имя файла
+- ldd file_name
 
 Аналог:
 
-- otool -L имя файла
+- otool -L file_name
+
+Подмена библиотек в бинарнике:
+
+- patchelf --replace-needed lib.so.0 /path/to/new/lib.so.0 your_binary_file
+
+Аналог:
+
+- install_name_tool -change /path/to/old/lib.dylib /path/to/new/lib.dylib your_binary_file

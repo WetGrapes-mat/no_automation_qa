@@ -1,7 +1,6 @@
 #include <iostream>
-#include <string_view>
 
-int main(int /*argc*/, char* /*argv*/[], char** env)
+int main()
 {
     using namespace std;
 
