@@ -1,12 +1,11 @@
 #include <SDL3/SDL_version.h>
-#include <cstdlib>
 #include <iostream>
 
 int main()
 {
 
     SDL_version compiled, linked;
-    SDL_VERSION(&compiled)
+    SDL_VERSION(&compiled);
     SDL_GetVersion(&linked);
 
     int len_compiled = printf("compiled: %d.%d.%d \n",

@@ -3,8 +3,8 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
     rm -R build
     mkdir build 
     cd build 
-    cmake -G "Ninja" .. 
-    cmake  --build . 
+    cmake -G "Ninja"  ..
+    cmake  --build .
     ./dynamic-sdl
     echo "====================================="
     if otool -L dynamic-sdl | grep -q "libSDL2"; then
@@ -13,6 +13,7 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
         echo "Binary file is linked to SDL2"
         echo "This version is outdated link SDL3"
         install_name_tool -change /usr/local/opt/sdl2/lib/libSDL2-2.0.0.dylib /usr/local/lib/libSDL3.1.0.0.dylib dynamic-sdl
+        # export SDL_DYNAMIC_API=/usr/local/lib/libSDL3.1.0.0.dylib
         ./dynamic-sdl
         echo "====================================="
         otool -L dynamic-sdl
