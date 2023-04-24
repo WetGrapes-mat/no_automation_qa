@@ -1,4 +1,5 @@
 #include <SDL3/SDL_version.h>
+#include <cstdio>
 #include <iostream>
 
 int main()
@@ -14,6 +15,7 @@ int main()
                               compiled.patch);
     int len_linked =
         printf("linked: %d.%d.%d \n", linked.major, linked.minor, linked.patch);
+
     if (len_compiled > 0 && len_linked > 0)
     {
         return 0;

@@ -53,3 +53,23 @@ cmake -P cmake_uninstall.cmake
 gdb - 
 gdb next(n) steep(s)
 SDL_DYNAMIC_API_ENVVAR подложить персию другой длл 
+
+сразу удалить игру потом откючить dll
+typedef == using?
+
+Docker build -t my-name-app .
+Docker images 
+Docker run -p 8000:8001 --name my-name-docker 'image' 
+-d на заднем плане 
+-it в интерактивном режиме 
+Docker start -I my-name-docker
+
+COPY /path /path
+WORKDIR /path
+
+
+RUN команды для первого раза 
+
+EXPOSE 8001
+
+CMD ["", "",""]
