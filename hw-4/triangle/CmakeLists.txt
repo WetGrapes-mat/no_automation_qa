@@ -1,0 +1,17 @@
+cmake_minimum_required(VERSION 3.26)
+project(triangle)
+
+add_executable(
+  triangle
+  main.cxx
+  ../irender/irender.hxx
+  ../irender/irender.cxx
+  ../canvas/canvas.hxx
+  ../canvas/canvas.cxx
+  ../line/line.hxx
+  ../line/line.cxx
+  triangle.hxx
+  triangle.cxx)
+
+target_include_directories(triangle PUBLIC ../canvas ../irender ../line)
+target_compile_features(triangle PUBLIC cxx_std_20)

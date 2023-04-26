@@ -11,6 +11,7 @@
 namespace grp {
 using namespace std;
 SDL_Window* window = nullptr;
+
 const vector<tuple<SDL_Keycode, string, event, event>> keys {
   {     SDLK_w,      "w",      event::w_pressed,      event::w_released},
   {     SDLK_s,      "s",      event::s_pressed,      event::s_released},

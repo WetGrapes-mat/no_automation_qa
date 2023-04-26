@@ -1,0 +1,20 @@
+cmake_minimum_required(VERSION 3.26)
+project(triangle_interpolated)
+
+add_executable(
+  triangle_interpolated
+  main.cxx
+  triangle_interpolated.hxx
+  triangle_interpolated.cxx
+  ../irender/irender.hxx
+  ../irender/irender.cxx
+  ../canvas/canvas.hxx
+  ../canvas/canvas.cxx
+  ../line/line.hxx
+  ../line/line.cxx
+  ../triangle/triangle.hxx
+  ../triangle/triangle.cxx)
+
+target_include_directories(triangle_interpolated PUBLIC ../canvas ../irender
+                                                        ../line ../triangle)
+target_compile_features(triangle_interpolated PUBLIC cxx_std_20)
