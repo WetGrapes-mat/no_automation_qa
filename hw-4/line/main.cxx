@@ -14,7 +14,7 @@ int main(int, char**) {
 
   render.clear(gray);
 
-  int amount_lines = 50;
+  int amount_lines = 100;
 
   for (size_t i = 0; i < amount_lines; ++i) {
     // position start = position::generate(width, height);

@@ -61,7 +61,7 @@ pixels line_render::pixels_positions(position start, position end) {
     }
   };
 
-  if (abs(y1 - y0) < abs(x1 - x0)) {
+  if (abs(y1 - y0) <= abs(x1 - x0)) {
     if (x0 > x1) {
       plot_line_low(x1, y1, x0, y0);
     } else {
