@@ -10,6 +10,10 @@ double interpolate(const double f0, const double f1, const double t) {
   return f0 + (f1 - f0) * t;
 }
 
+uint8_t interpolate_c(const double c1, const double c2, const double t) {
+  return static_cast<uint8_t>(std::round(c2 * t + (1 - t) * c1));
+};
+
 vertex interpolate(const vertex& v0, const vertex& v1, const double t) {
   return {
     interpolate(v0.x, v1.x, t),
@@ -21,7 +25,6 @@ vertex interpolate(const vertex& v0, const vertex& v1, const double t) {
 }
 
 triangle_interpolated::triangle_interpolated(canvas& buffer) : triangle_render(buffer) {}
-
 void triangle_interpolated::raster_one_horizontal_line(const vertex& left_vertex,
                                                        const vertex& right_vertex,
                                                        std::vector<vertex>& out) {

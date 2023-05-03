@@ -30,9 +30,9 @@ int main(int, char**) {
       }
       rgb_color fragment_shader(const vertex& v_in) override {
         rgb_color out;
-        out.red = static_cast<uint8_t>(v_in.r * 255);
-        out.green = static_cast<uint8_t>(v_in.g * 255);
-        out.blue = static_cast<uint8_t>(v_in.b * 255);
+        out.red = static_cast<uint8_t>(v_in.r);
+        out.green = static_cast<uint8_t>(v_in.g);
+        out.blue = static_cast<uint8_t>(v_in.b);
         return out;
       }
   } program01;
@@ -41,12 +41,24 @@ int main(int, char**) {
   interpolated_render.set_gfx_program(program01);
 
   std::vector<vertex> triangle_v {
-    {  0,   0, 20, 0, 0,   0,   0, 0},
-    {  0, 239,  0, 1, 0,  13, 239, 0},
-    {319, 239,  0, 0, 1, 319, 239, 0}
+    {260, 240, 255,   0, 0},
+    {380, 171, 255,   0, 0},
+    {380, 309, 255,   0, 0},
+    {260, 102, 255,   0, 0},
+    {380,  33, 255,   0, 0},
+    {380, 171, 255,   0, 0},
+    {260, 378, 255,   0, 0},
+    {380, 309, 255,   0, 0},
+    {380, 447, 255,   0, 0},
+    {500, 240, 255,   0, 0},
+    {380, 171, 255,   0, 0},
+    {380, 309, 255,   0, 0},
+    {260, 240,   0, 255, 0},
+    {140, 171,   0, 255, 0},
+    {140, 309,   0, 255, 0}
   };
 
-  interpolated_render.draw_triangle(triangle_v);
+  interpolated_render.draw_triangles(triangle_v, 15);
 
   image.save_image("../interpolated.ppm");
 }

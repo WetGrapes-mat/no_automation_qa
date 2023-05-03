@@ -65,10 +65,22 @@ void canvas::load_image(const char* path) {
 }
 
 void canvas::set_pixel(size_t x, size_t y, rgb_color color) {
+  if (x > width || y > height) {
+    throw std::runtime_error("overflow");
+  }
+  if (x == width) {
+    x -= 1;
+  }
+  if (y == height) {
+    y--;
+  }
   rgb_color& pixel = pixels.at(y * width + x);
   pixel = color;
 }
 
 rgb_color canvas::get_pixel(size_t x, size_t y) const {
+  if (x > width || y > height) {
+    throw std::runtime_error("overflow");
+  }
   return pixels.at(y * width + x);
 }

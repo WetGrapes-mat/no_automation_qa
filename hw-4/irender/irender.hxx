@@ -6,6 +6,7 @@
 #include <tuple>
 
 struct position {
+    position(int x_, int y_) : x(x_), y(y_) {};
     double length();
     friend position operator-(const position& left, const position& right);
     friend bool operator==(const position& left, const position& right);

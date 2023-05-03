@@ -10,23 +10,32 @@ int main() {
   triangle_render render(image);
 
   pixels vertexes;
-  vertexes.push_back(position::generate(width, height));
-  vertexes.push_back(position::generate(width, height));
-  vertexes.push_back(position::generate(width, height));
+  vertexes.reserve(9);
+  vertexes.push_back(position(260, 240));
+  vertexes.push_back(position(380, 171));
+  vertexes.push_back(position(380, 309));
 
-  pixels vertexes1;
-  vertexes1.push_back(position::generate(width, height));
-  vertexes1.push_back(position::generate(width, height));
-  vertexes1.push_back(position::generate(width, height));
+  vertexes.push_back(position(260, 102));
+  vertexes.push_back(position(380, 33));
+  vertexes.push_back(position(380, 171));
 
-  pixels vertexes2;
-  vertexes2.push_back(position::generate(width, height));
-  vertexes2.push_back(position::generate(width, height));
-  vertexes2.push_back(position::generate(width, height));
+  vertexes.push_back(position(260, 378));
+  vertexes.push_back(position(380, 309));
+  vertexes.push_back(position(380, 447));
 
-  render.draw_triangle(vertexes, color_green);
-  render.draw_triangle(vertexes1, color_blue);
-  render.draw_triangle(vertexes2, color_red);
+  vertexes.push_back(position(500, 240));
+  vertexes.push_back(position(380, 171));
+  vertexes.push_back(position(380, 309));
+
+  vertexes.push_back(position(260, 240));
+  vertexes.push_back(position(140, 171));
+  vertexes.push_back(position(140, 309));
+
+  render.draw_triangles(vertexes, 15, color_green);
+
+  // render.draw_triangle(vertexes.at(0), vertexes.at(1), vertexes.at(2), color_green);
+  // render.draw_triangle(vertexes1.at(0), vertexes1.at(1), vertexes1.at(2), color_blue);
+  // render.draw_triangle(vertexes2.at(0), vertexes2.at(1), vertexes2.at(2), color_red);
 
   image.save_image("../triangle.ppm");
 

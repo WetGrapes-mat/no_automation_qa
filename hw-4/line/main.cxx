@@ -1,4 +1,6 @@
 #include "line.hxx"
+#include <cstdio>
+#include <iostream>
 
 int main(int, char**) {
   const rgb_color black = {0, 0, 0};
@@ -26,5 +28,18 @@ int main(int, char**) {
     render.draw_line(std::get<0>(result), std::get<1>(result), color);
   }
   image.save_image("../lines.ppm");
+
+  // int a, b;
+  // std::cin >> a;
+  // std::cin >> b;
+  // int c = a / b;
+  // // std::cout << "hgfjk" << std::endl;
+  // std::cout << c << a / b << std::endl;
+
+  // bool is_good = std::cout.good();
+
+  // int result = is_good ? EXIT_SUCCESS : EXIT_FAILURE;
+  // return c;
+
   return 0;
 }
