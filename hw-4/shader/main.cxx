@@ -38,14 +38,14 @@ int main(int, char**) {
         out.x = c_x + distance * cos(a);
         out.y = c_y + distance * sin(a);
 
-        double d_x = 640 / 2 - out.x;
-        double d_y = 480 / 2 - out.y;
+        double d_x = c_x - out.x;
+        double d_y = c_y - out.y;
 
         d_x *= uniform.s;
         d_y *= uniform.s;
 
-        out.x = 640 / 2 - d_x;
-        out.y = 480 / 2 - d_y;
+        out.x = c_x - d_x;
+        out.y = c_y - d_y;
 
         out.r *= cos(uniform.c);
         out.g *= cos(uniform.c);
