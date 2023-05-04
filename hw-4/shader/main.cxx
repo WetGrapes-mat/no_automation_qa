@@ -3,6 +3,7 @@
 #include <SDL3/SDL_events.h>
 #include <algorithm>
 #include <cmath>
+#include <cstdlib>
 #include <iostream>
 
 int main(int, char**) {
@@ -20,47 +21,12 @@ int main(int, char**) {
       }
       vertex vertex_shader(const vertex& v_in) override {
         vertex out = v_in;
-        // double distanceA =
-        //   std::sqrt(std::pow(v_in.x - uniform.v1.x, 2) + std::pow(v_in.y - uniform.v1.y, 2));
-        // double distanceB =
-        //   std::sqrt(std::pow(v_in.x - uniform.v2.x, 2) + std::pow(v_in.y - uniform.v2.y, 2));
-        // double distanceC =
-        //   std::sqrt(std::pow(v_in.x - uniform.v3.x, 2) + std::pow(v_in.y - uniform.v3.y, 2));
-        // double n_x, n_y;
-        // if (distanceA <= distanceB && distanceA <= distanceC) {
-        //   n_x = uniform.v1.x;
-        //   n_y = uniform.v1.y;
-        // } else if (distanceB <= distanceA && distanceB <= distanceC) {
-        //   n_x = uniform.v2.x;
-        //   n_y = uniform.v2.y;
-        // } else {
-        //   n_x = uniform.v3.x;
-        //   n_y = uniform.v3.y;
-        // }
-        // vertex nn;
-        // if (n_x == uniform.v1.x && n_y == uniform.v1.y) {
-        //   nn = (uniform.v2.x < uniform.v3.x) ? uniform.v2 : uniform.v3;
-        // } else if (n_x == uniform.v2.x && n_y == uniform.v2.y) {
-        //   nn = (uniform.v1.x < uniform.v3.x) ? uniform.v1 : uniform.v3;
-        // } else {
-        //   nn = (uniform.v1.x < uniform.v2.x) ? uniform.v1 : uniform.v2;
-        // }
-        // double direction = std::atan2(nn.y - out.y, nn.x - out.x);
-        // double distance = std::sqrt(std::pow(nn.x - out.x, 2) + std::pow(nn.y - out.y, 2));
-        // if (distance <= 0.05) {
-        //   out.x = nn.x;
-        //   out.y = nn.y;
-        //   return out;
-        // }
-        // out.x = out.x + 0.05 * uniform.t * std::cos(direction);
-        // out.y = out.y + 0.05 * uniform.t * std::sin(direction);
-        // return out;
 
-        double delta_x = std::cos(uniform.t) * std::sin(uniform.t + out.x);
-        double delta_y = std::sin(uniform.t) * std::sin(uniform.t + out.y);
+        double delta_x = std::cos(uniform.t) * std::sin(uniform.t + out.x) * 20;
+        double delta_y = std::sin(uniform.t) * std::sin(uniform.t + out.y) * 20;
 
-        out.x += delta_x * 30;
-        out.y += delta_y * 30;
+        out.x += delta_x;
+        out.y += delta_y;
 
         size_t c_x = 320;
         size_t c_y = 240;
@@ -102,12 +68,32 @@ int main(int, char**) {
   interpolated_render.clear({0, 0, 0});
   interpolated_render.set_gfx_program(program01);
 
-  std::vector<vertex> triangle_v {
+  double cx = 320.0;
+  double cy = 240.0;
+  double r = 100.0;
+  int n = 21;
+  double step = 2.0 * M_PI / n;
+  std::vector<vertex> triangle_v;
+
+  for (int i = 0; i < n; ++i) {
+    double angle = i * step;
+    double x = cx + r * std::cos(angle);
+    double y = cy + r * std::sin(angle);
+    triangle_v.push_back({
+      x,
+      y,
+      static_cast<double>(std::rand() % 256),
+      static_cast<double>(std::rand() % 256),
+      static_cast<double>(std::rand() % 256),
+    });
+  }
+
+  // std::vector<vertex> triangle_v {
   //  центр
-    {260, 240, 223, 240,  38},
-    {380, 171,  55, 240,  38},
-    {380, 309, 218,  36, 224},
- // верх
+  // {260, 240, 223, 240,  38},
+  // {380, 171,  55, 240,  38},
+  // {380, 309, 218,  36, 224},
+  // верх
   //     {260, 102, 223, 240,  38},
   //     {380,  33, 223, 240,  38},
   //     {380, 171, 223, 240,  38},
@@ -123,11 +109,11 @@ int main(int, char**) {
   //     {260, 240, 218,  36, 224},
   //     {140, 171, 218,  36, 224},
   //     {140, 309, 218,  36, 224}
-  };
+  // };
 
-  interpolated_render.draw_triangles(triangle_v, 3);
+  // interpolated_render.draw_triangles(triangle_v, n);
 
-  image.save_image("../interpolated.ppm");
+  // image.save_image("../interpolated.ppm");
 
   SDL_Window* window = SDL_CreateWindow("triangle", width, height, SDL_WINDOW_OPENGL);
   if (window == nullptr) {
@@ -171,7 +157,7 @@ int main(int, char**) {
     interpolated_render.clear({0, 0, 0});
     program01.set_uniforms(
       uniforms {time_from_start, size, color, triangle_v[0], triangle_v[1], triangle_v[2]});
-    interpolated_render.draw_triangles(triangle_v, 3);
+    interpolated_render.draw_triangles(triangle_v, n);
 
     SDL_Surface* bitmapSurface =
       SDL_CreateSurfaceFrom(pixels, width, height, pitch, SDL_PIXELFORMAT_RGB24);
