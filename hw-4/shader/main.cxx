@@ -38,8 +38,8 @@ int main(int, char**) {
         out.x = c_x + distance * cos(a);
         out.y = c_y + distance * sin(a);
 
-        auto d_x {640 / 2 - out.x};
-        auto d_y {480 / 2 - out.y};
+        double d_x = 640 / 2 - out.x;
+        double d_y = 480 / 2 - out.y;
 
         d_x *= uniform.s;
         d_y *= uniform.s;
