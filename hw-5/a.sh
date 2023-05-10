@@ -4,4 +4,4 @@ mkdir build
 cd build 
 cmake ..
 cmake  --build .
-./game-04-1
+./game
