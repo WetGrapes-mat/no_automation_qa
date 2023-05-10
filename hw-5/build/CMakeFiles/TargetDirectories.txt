@@ -1,0 +1,4 @@
+/Users/matvejdubajlo/no_automation_qa/hw-5/build/CMakeFiles/engine-04-1.dir
+/Users/matvejdubajlo/no_automation_qa/hw-5/build/CMakeFiles/game-04-1.dir
+/Users/matvejdubajlo/no_automation_qa/hw-5/build/CMakeFiles/edit_cache.dir
+/Users/matvejdubajlo/no_automation_qa/hw-5/build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,1 @@
+/Library/Developer/CommandLineTools/usr/bin/c++  -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk -mmacosx-version-min=12.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -L/usr/local/opt/llvm/lib "CMakeFiles/game-04-1.dir/game.cxx.o" -o game-04-1  -Wl,-rpath,/Users/matvejdubajlo/no_automation_qa/hw-5/build libengine-04-1.dylib 
