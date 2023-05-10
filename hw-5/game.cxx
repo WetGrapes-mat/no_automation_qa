@@ -36,7 +36,7 @@ int main(int /*argc*/, char* /*argv*/[]) {
     // grp::triangle tr;
     // file >> tr;
     grp::triangle t {
-      {-0.5f, -0.5f, 0.5f, 0.5f, -0.5f, 0.5f, 0.0f, 0.8f, -0.5f}
+      {-0.5f, -0.5f, -0.8f, 0.5f, -0.5f, 0.5f, 0.0f, 0.8f, 1.f}
     };
 
     engine->render_triangle(t);

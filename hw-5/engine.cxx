@@ -199,41 +199,38 @@ class engine_impl final : public engine {
 
       GLuint fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
       CHECK_OPENGL()
-      // string_view fragment_shader_src = R"(
-      //             #version 410 core
-      //             precision mediump float;
-
-      //             in vec4 v_position;
-
-      //             out vec4 frag_color;
-
-      //             // try main_one function name on linux mesa drivers
-      //             void main()
-      //             {
-      //                 if (v_position.z >= 0.0)
-      //                 {
-      //                     float light_green = 0.5 + v_position.z / 2.0;
-      //                     frag_color = vec4(0.0, light_green, 0.0, 1.0);
-      //                 } else
-      //                 {
-      //                     float color = 0.5 - (v_position.z / -2.0);
-      //                     frag_color = vec4(color, 0.0, 0.0, 1.0);
-      //                 }
-      //             }
-      //             )";
       string_view fragment_shader_src = R"(
-                      #version 410 core
+                  #version 410 core
                   precision mediump float;
 
                   in vec4 v_position;
 
                   out vec4 frag_color;
 
-
-                      void main() {
-                          frag_color = v_position;
+                  // try main_one function name on linux mesa drivers
+                  void main()
+                  {
+                      if (v_position.z >= 0.0)
+                      {
+                          frag_color = vec4(0.8, 0.8, 0.0, 1.0);
+                      } else
+                      {
+                          frag_color = vec4(0.8, 0.0, 0.8, 1.0);
                       }
-                      )";
+                  }
+                  )";
+      // string_view fragment_shader_src = R"(
+      //                 #version 410 core
+      //             precision mediump float;
+
+      //             in vec4 v_position;
+
+      //             out vec4 frag_color;
+
+      //                 void main() {
+      //                     frag_color = v_position;
+      //                 }
+      //                 )";
       source = fragment_shader_src.data();
       glShaderSource(fragment_shader, 1, &source, nullptr);
       CHECK_OPENGL()
@@ -328,10 +325,15 @@ class engine_impl final : public engine {
       double alpha = std::sin(seconds) * 0.5;
       out.vertices[0].x = out.vertices[0].x * std::cos(alpha) - out.vertices[0].y * std::sin(alpha);
       out.vertices[0].y = out.vertices[0].x * std::sin(alpha) + out.vertices[0].y * std::cos(alpha);
+      out.vertices[0].z = out.vertices[0].x * std::cos(alpha) + out.vertices[0].z * std::sin(alpha);
+
       out.vertices[1].x = out.vertices[1].x * std::cos(alpha) - out.vertices[1].y * std::sin(alpha);
       out.vertices[1].y = out.vertices[1].x * std::sin(alpha) + out.vertices[1].y * std::cos(alpha);
+      out.vertices[1].z = out.vertices[1].x * std::cos(alpha) + out.vertices[1].z * std::sin(alpha);
+
       out.vertices[2].x = out.vertices[2].x * std::cos(alpha) - out.vertices[2].y * std::sin(alpha);
       out.vertices[2].y = out.vertices[2].x * std::sin(alpha) + out.vertices[2].y * std::cos(alpha);
+      out.vertices[1].z = out.vertices[2].x * std::cos(alpha) + out.vertices[2].z * std::sin(alpha);
 
       glBufferData(GL_ARRAY_BUFFER, sizeof(out.vertices), out.vertices.data(), GL_STATIC_DRAW);
       CHECK_OPENGL()
@@ -355,7 +357,7 @@ class engine_impl final : public engine {
       auto ns = time_since_epoch.count();
       auto seconds = ns / 1000'000'000.0f;
       auto current_color = 0.5f * (std::sin(seconds) + 1.0f);
-      glClearColor(current_color, 0.f, 1.f - current_color, 0.0f);
+      glClearColor(current_color, 0.5f * (std::cos(seconds) + 1.0f), 1.f - current_color, 0.0f);
       CHECK_OPENGL()
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
       CHECK_OPENGL()
