@@ -299,17 +299,14 @@ class engine_impl final : public engine {
       auto ns = time_since_epoch.count();
       auto seconds = ns / 1000'000'000.f;
       double alpha = std::sin(seconds) * 0.5;
-      out.vertices[0].x = out.vertices[0].x * std::cos(alpha) - out.vertices[0].y * std::sin(alpha);
-      out.vertices[0].y = out.vertices[0].x * std::sin(alpha) + out.vertices[0].y * std::cos(alpha);
-      out.vertices[0].z = out.vertices[0].x * std::cos(alpha) + out.vertices[0].z * std::sin(alpha);
-
-      out.vertices[1].x = out.vertices[1].x * std::cos(alpha) - out.vertices[1].y * std::sin(alpha);
-      out.vertices[1].y = out.vertices[1].x * std::sin(alpha) + out.vertices[1].y * std::cos(alpha);
-      out.vertices[1].z = out.vertices[1].x * std::cos(alpha) + out.vertices[1].z * std::sin(alpha);
-
-      out.vertices[2].x = out.vertices[2].x * std::cos(alpha) - out.vertices[2].y * std::sin(alpha);
-      out.vertices[2].y = out.vertices[2].x * std::sin(alpha) + out.vertices[2].y * std::cos(alpha);
-      out.vertices[1].z = out.vertices[2].x * std::cos(alpha) + out.vertices[2].z * std::sin(alpha);
+      for (int i = 0; i < out.vertices.size(); i++) {
+        out.vertices[i].x =
+          out.vertices[i].x * std::cos(alpha) - out.vertices[i].y * std::sin(alpha);
+        out.vertices[i].y =
+          out.vertices[i].x * std::sin(alpha) + out.vertices[i].y * std::cos(alpha);
+        out.vertices[i].z =
+          out.vertices[i].x * std::cos(alpha) + out.vertices[i].z * std::sin(alpha);
+      }
 
       glBufferData(GL_ARRAY_BUFFER, sizeof(out.vertices), out.vertices.data(), GL_STATIC_DRAW);
       CHECK_OPENGL()
