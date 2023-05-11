@@ -177,17 +177,6 @@ class engine_impl final : public engine {
                                     gl_Position = v_position;
                                 }
                                 )";
-      // string_view vertex_shader_src = R"(
-      //                               #version 410 core
-      //                               layout(location = 0) in vec4 a_position;
-      //                               layout(location = 1) in vec4 a_color;
-      //                               out vec4 v_color;
-
-      //                               void main() {
-      //                                   v_color = a_color;
-      //                                   gl_Position = a_position;
-      //                               }
-      //                               )";
       const char* source = vertex_shader_src.data();
       glShaderSource(vert_shader, 1, &source, nullptr);
       CHECK_OPENGL()
@@ -219,18 +208,7 @@ class engine_impl final : public engine {
                       }
                   }
                   )";
-      // string_view fragment_shader_src = R"(
-      //                 #version 410 core
-      //             precision mediump float;
 
-      //             in vec4 v_position;
-
-      //             out vec4 frag_color;
-
-      //                 void main() {
-      //                     frag_color = v_position;
-      //                 }
-      //                 )";
       source = fragment_shader_src.data();
       glShaderSource(fragment_shader, 1, &source, nullptr);
       CHECK_OPENGL()
@@ -256,8 +234,6 @@ class engine_impl final : public engine {
       glBindAttribLocation(program_id_, 0, "a_position");
       CHECK_OPENGL()
 
-      // glBindAttribLocation(program_id_, 1, "a_color");
-      // CHECK_OPENGL()
       // link program after binding attribute locations
       glLinkProgram(program_id_);
       CHECK_OPENGL()
