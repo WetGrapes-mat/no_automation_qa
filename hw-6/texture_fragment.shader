@@ -8,5 +8,5 @@ out vec4 frag_color;
 uniform sampler2D s_texture;
 
 void main() {
-    frag_color = texture(s_texture, v_texture);
+    frag_color = texture(s_texture, v_texture) * v_color;
 }
