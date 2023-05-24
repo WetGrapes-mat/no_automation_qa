@@ -33,7 +33,7 @@ int main(int /*argc*/, char* /*argv*/[]) {
 
   engine->initialize("");
 
-  std::unique_ptr<grp::texture> tank {engine->create_texture("./fly.png")};
+  std::unique_ptr<grp::texture> fly {engine->create_texture("./fly.png")};
 
   // grp::texture* tank = engine->create_texture("./fly.png");
   grp::triangle triangle_low {
@@ -58,7 +58,6 @@ int main(int /*argc*/, char* /*argv*/[]) {
     grp::event event;
 
     while (engine->read_input(event)) {
-      std::cout << event << std::endl;
       if (event == grp::event::left_pressed) {
         fly_direction = 0.f;
         fly_pos[0] -= speed_x;
@@ -81,6 +80,8 @@ int main(int /*argc*/, char* /*argv*/[]) {
         fly_direction += 0.1f;
       } else if (event == grp::event::rotater_pressed) {
         fly_direction -= 0.1f;
+      } else if (event == grp::event::select_pressed) {
+        fly->load("./dragon.png");
       } else if (event == grp::event::turn_off) {
         continue_loop = false;
         break;
@@ -113,8 +114,8 @@ int main(int /*argc*/, char* /*argv*/[]) {
     grp::triangle triangle_high_transformed =
       get_transformed_triangle(triangle_high, result_matrix);
 
-    engine->render(triangle_low_transformed, tank.get());
-    engine->render(triangle_high_transformed, tank.get());
+    engine->render(triangle_low_transformed, fly.get());
+    engine->render(triangle_high_transformed, fly.get());
 
     engine->swap_buffers();
   }

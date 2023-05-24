@@ -17,7 +17,7 @@
 #include <vector>
 
 #include "SDL3/SDL_keycode.h"
-#include "glad/include/glad.h"
+#include "glad/glad.h"
 #include <SDL3/SDL.h>
 
 #include "picopng.hxx"
@@ -53,7 +53,7 @@
 namespace grp {
 //+++++++++++++++++++++++++++++++EVENT+++++++++++++++++++++++++++++++
 
-static std::array<std::string_view, 17> event_names = {
+static std::array<std::string_view, 19> event_names = {
   {/// input events
 "left_pressed", "left_released",
    "right_pressed", "right_released",
@@ -63,6 +63,8 @@ static std::array<std::string_view, 17> event_names = {
    "rotater_pressed", "rotater_released",
    "scalep_pressed", "scalep_released",
    "scalem_pressed", "scalem_released",
+   "select_pressed", "select_released",
+
    /// virtual console events
    "turn_off"}
 };
@@ -100,7 +102,7 @@ struct bind {
     event event_released;
 };
 
-const std::array<bind, 8> keys {
+const std::array<bind, 9> keys {
   {
    {SDLK_w, "up", event::up_pressed, event::up_released},
    {SDLK_a, "left", event::left_pressed, event::left_released},
@@ -110,6 +112,7 @@ const std::array<bind, 8> keys {
    {SDLK_e, "left_rotete", event::rotatel_pressed, event::rotatel_released},
    {SDLK_z, "scale-", event::scalem_pressed, event::scalem_released},
    {SDLK_c, "scale+", event::scalep_pressed, event::scalep_released},
+   {SDLK_SPACE, "select2", event::select_pressed, event::select_released},
 
    }
 };
@@ -259,9 +262,6 @@ class engine_impl final : public engine {
       glBindVertexArray(vao);
       CHECK_OPENGL()
 
-      // triangle_program.load_shader(GL_VERTEX_SHADER, "./triangle_vertex.shader");
-      // triangle_program.load_shader(GL_FRAGMENT_SHADER, "./triangle_fragment.shader");
-      // triangle_program.prepare_program();
       texture_program.load_shader(GL_VERTEX_SHADER, "./texture_vertex.shader");
       texture_program.load_shader(GL_FRAGMENT_SHADER, "./texture_fragment.shader");
       texture_program.prepare_program();
@@ -273,8 +273,7 @@ class engine_impl final : public engine {
 
       return "";
     }
-    /// pool event from input queue
-    /// return true if more events in queue
+
     bool read_input(event& e) final {
       using namespace std;
       // collect all events from SDL
@@ -383,7 +382,6 @@ class engine_impl final : public engine {
     texture* create_texture(std::string_view path) {
       texture* r = new opengl_texture();
       r->load(path);
-      std::cout << r << std::endl;
       return r;
       ;
     }
@@ -400,12 +398,12 @@ class engine_impl final : public engine {
 //+++++++++++++++++++++++++++++++SHADER_PROGRAM+++++++++++++++++++++++++++++++
 
 opengl_shader_program::~opengl_shader_program() {
-  std::for_each(m_shaders.begin(), m_shaders.end(), [](const GLuint shader_id) {
+  std::for_each(shaders_.begin(), shaders_.end(), [](const GLuint shader_id) {
     glDeleteShader(shader_id);
     CHECK_OPENGL();
   });
 
-  glDeleteProgram(m_program);
+  glDeleteProgram(program_);
   CHECK_OPENGL();
 }
 
@@ -443,11 +441,11 @@ void opengl_shader_program::load_shader(const GLenum shader_type,
     throw std::runtime_error {"Error on compiling shader"};
   }
 
-  m_shaders.push_back(shader_id);
+  shaders_.push_back(shader_id);
 }
 
 void opengl_shader_program::apply_shader_program() {
-  glUseProgram(m_program);
+  glUseProgram(program_);
   CHECK_OPENGL();
 }
 
@@ -458,63 +456,62 @@ void opengl_shader_program::prepare_program() {
 }
 
 void opengl_shader_program::attach_shaders() {
-  m_program = glCreateProgram();
+  program_ = glCreateProgram();
   CHECK_OPENGL();
 
-  std::for_each(m_shaders.begin(), m_shaders.end(), [this](const GLuint shader_id) {
-    glAttachShader(m_program, shader_id);
+  std::for_each(shaders_.begin(), shaders_.end(), [this](const GLuint shader_id) {
+    glAttachShader(program_, shader_id);
     CHECK_OPENGL();
   });
 }
 
 void opengl_shader_program::link_program() const {
-  glLinkProgram(m_program);
+  glLinkProgram(program_);
   CHECK_OPENGL();
 
   GLint linked {};
-  glGetProgramiv(m_program, GL_LINK_STATUS, &linked);
+  glGetProgramiv(program_, GL_LINK_STATUS, &linked);
   CHECK_OPENGL();
 
   if (!linked) {
     GLint log_length {};
-    glGetProgramiv(m_program, GL_INFO_LOG_LENGTH, &log_length);
+    glGetProgramiv(program_, GL_INFO_LOG_LENGTH, &log_length);
     CHECK_OPENGL();
 
     if (log_length > 1) {
       std::string log {};
       log.resize(log_length);
-      glGetProgramInfoLog(m_program, log_length, nullptr, log.data());
+      glGetProgramInfoLog(program_, log_length, nullptr, log.data());
       CHECK_OPENGL();
     }
 
-    glDeleteProgram(m_program);
+    glDeleteProgram(program_);
     CHECK_OPENGL();
     throw std::runtime_error {"Error on linking shader program"};
   }
 }
 
 void opengl_shader_program::validate_program() const {
-  glValidateProgram(m_program);
+  glValidateProgram(program_);
   CHECK_OPENGL();
 
   GLint is_validated {};
-  glGetProgramiv(m_program, GL_VALIDATE_STATUS, &is_validated);
+  glGetProgramiv(program_, GL_VALIDATE_STATUS, &is_validated);
   CHECK_OPENGL();
-  std::cout << is_validated << std::endl;
 
   if (!is_validated) {
     GLint log_length {};
-    glGetProgramiv(m_program, GL_INFO_LOG_LENGTH, &log_length);
+    glGetProgramiv(program_, GL_INFO_LOG_LENGTH, &log_length);
     CHECK_OPENGL();
 
     if (log_length > 1) {
       std::string log {};
       log.resize(log_length);
-      glGetProgramInfoLog(m_program, log_length, nullptr, log.data());
+      glGetProgramInfoLog(program_, log_length, nullptr, log.data());
       CHECK_OPENGL();
     }
 
-    glDeleteProgram(m_program);
+    glDeleteProgram(program_);
     throw std::runtime_error {"Error on validating shader program"};
   }
 }

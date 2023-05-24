@@ -1,19 +1,15 @@
 cmake_minimum_required(VERSION 3.26)
 project(opengl-minimal CXX C)
 
-list(
-  APPEND
-  SHADERS
-  "${CMAKE_CURRENT_SOURCE_DIR}/triangle_vertex.shader"
-  "${CMAKE_CURRENT_SOURCE_DIR}/triangle_fragment.shader"
-  "${CMAKE_CURRENT_SOURCE_DIR}/texture_vertex.shader"
-  "${CMAKE_CURRENT_SOURCE_DIR}/texture_fragment.shader")
-list(APPEND IMAGES "${CMAKE_CURRENT_SOURCE_DIR}/fly.png")
+list(APPEND SHADERS "${CMAKE_CURRENT_SOURCE_DIR}/texture_vertex.shader"
+     "${CMAKE_CURRENT_SOURCE_DIR}/texture_fragment.shader")
+list(APPEND IMAGES "${CMAKE_CURRENT_SOURCE_DIR}/fly.png"
+     "${CMAKE_CURRENT_SOURCE_DIR}/dragon.png")
 file(COPY ${SHADERS} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 file(COPY ${IMAGES} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
-add_library(engine SHARED engine.cxx engine.hxx glad/glad.c glad/include/glad.h
-                          glad/include/KHR/khrplatform.h)
+add_library(engine SHARED engine.cxx engine.hxx glad/glad.c glad/glad.h
+                          glad/KHR/khrplatform.h)
 target_compile_features(engine PUBLIC cxx_std_20)
 target_include_directories(engine PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 

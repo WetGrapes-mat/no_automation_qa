@@ -1,4 +1,4 @@
-#include "glad/include/glad.h"
+#include "glad/glad.h"
 #include <array>
 #include <iosfwd>
 #include <string>
@@ -25,6 +25,8 @@ enum class event {
   scalep_released,
   scalem_pressed,
   scalem_released,
+  select_pressed,
+  select_released,
 
   /// virtual console events
   turn_off
@@ -50,8 +52,6 @@ struct vertex {
 };
 
 struct triangle {
-    // triangle(const vertex& v0, const vertex& v1, const vertex& v2);
-
     std::array<vertex, 3> vertices;
 };
 
@@ -90,26 +90,19 @@ class opengl_shader_program final {
 
     void load_shader(const GLenum shader_type, const std::string_view shader_path);
 
-    // Attach all shaders, compile, link and validate program.
     void prepare_program();
 
-    // Use this shader for rendering objects.
     void apply_shader_program();
 
   private:
-    // IMPORTANT NOTE: it's assumed that the user specifies attribute
-    // location directly in the shader source file by using `location`
-    // layout qualifier (opengl es 3.2). So, there is no need to call
-    // glBindAttributeLocation().
     void attach_shaders();
     void link_program() const;
     void validate_program() const;
 
     std::string get_shader_code_from_file(const std::string_view path) const;
 
-    // All shader ids.
-    std::vector<GLuint> m_shaders {};
-    GLuint m_program {};
+    std::vector<GLuint> shaders_ {};
+    GLuint program_ {};
 };
 
 } // end namespace grp
