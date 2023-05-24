@@ -44,6 +44,7 @@
   }
 
 namespace grp {
+//+++++++++++++++++++++++++++++++EVENT+++++++++++++++++++++++++++++++
 
 static std::array<std::string_view, 17> event_names = {
   {/// input events
@@ -58,7 +59,6 @@ static std::array<std::string_view, 17> event_names = {
    /// virtual console events
    "turn_off"}
 };
-
 std::ostream& operator<<(std::ostream& stream, const event e) {
   std::uint32_t value = static_cast<std::uint32_t>(e);
   std::uint32_t minimal = static_cast<std::uint32_t>(event::left_pressed);

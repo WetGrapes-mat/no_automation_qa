@@ -1,0 +1,9 @@
+---
+Checks: "*"
+HeaderFilterRegex: ".*"
+AnalyzeTemporaryDtors: false
+ExtraArgs:
+  - -isystem
+  - /usr/local/include/SDL3
+---
+

@@ -1,0 +1,2 @@
+/Users/matvejdubajlo/no_automation_qa/build/CMakeFiles/edit_cache.dir
+/Users/matvejdubajlo/no_automation_qa/build/CMakeFiles/rebuild_cache.dir

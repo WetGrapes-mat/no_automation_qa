@@ -29,17 +29,16 @@ int main(int /*argc*/, char* /*argv*/[]) {
           break;
       }
     }
-
     // std::ifstream file("/Users/matvejdubajlo/no_automation_qa/untitled folder/vertexes.txt");
     // assert(!!file);
 
     // grp::triangle tr;
     // file >> tr;
-    grp::triangle t {
-      {-0.5f, -0.5f, -0.8f, 0.5f, -0.5f, 0.5f, 0.0f, 0.8f, 1.f}
-    };
+    // grp::triangle t {
+    //   {-0.5f, -0.5f, -0.8f, 0.5f, -0.5f, 0.5f, 0.0f, 0.8f, 1.f}
+    // };
 
-    engine->render_triangle(t);
+    // engine->render_triangle(t);
 
     engine->swap_buffers();
   }
