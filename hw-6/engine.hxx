@@ -71,7 +71,6 @@ class engine {
 
     virtual std::string initialize(std::string_view config) = 0;
     virtual bool read_input(event& e) = 0;
-    virtual bool is_key_down(const enum event key) = 0;
     virtual void render(const triangle&) = 0;
     virtual void render(const triangle&, texture* const texture) = 0;
     virtual texture* create_texture(std::string_view path) = 0;

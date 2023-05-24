@@ -1,3 +1,4 @@
+#include "engine.hxx"
 #include <algorithm>
 #include <array>
 #include <cassert>
@@ -6,8 +7,6 @@
 #include <iostream>
 #include <memory>
 #include <string_view>
-
-#include "engine.hxx"
 
 #include "glm/glm.hpp"
 
@@ -36,6 +35,7 @@ int main(int /*argc*/, char* /*argv*/[]) {
 
   std::unique_ptr<grp::texture> tank {engine->create_texture("./fly.png")};
 
+  // grp::texture* tank = engine->create_texture("./fly.png");
   grp::triangle triangle_low {
     {-0.3f, -0.3f, 0.f, 0.f, 0.f, 0.f, 0.f, 1.f, 0.3f, -0.3f, 0.f, 0.f,
      0.f, 0.f, 1.f, 1.f, -0.3f, 0.3f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f},
@@ -46,11 +46,11 @@ int main(int /*argc*/, char* /*argv*/[]) {
      0.f, 0.f, 1.f, 0.f, 0.3f, -0.3f, 0.f, 0.f, 0.f, 0.f, 1.f, 1.f},
   };
 
-  glm::vec3 worm_pos {0.f, 0.f, 1.f};
-  glm::vec2 worm_scale {1.f, 1.f};
+  glm::vec3 fly_pos {0.f, 0.f, 1.f};
+  glm::vec2 fly_scale {1.f, 1.f};
 
   constexpr float pi {3.14159};
-  float worm_direction {0.f};
+  float fly_direction {0.f};
   float speed_x {0.01f}, speed_y {0.01f};
   //++++++++++++++++++main loop++++++++++++++++++++
   bool continue_loop = true;
@@ -60,27 +60,27 @@ int main(int /*argc*/, char* /*argv*/[]) {
     while (engine->read_input(event)) {
       std::cout << event << std::endl;
       if (event == grp::event::left_pressed) {
-        worm_direction = 0.f;
-        worm_pos[0] -= speed_x;
+        fly_direction = 0.f;
+        fly_pos[0] -= speed_x;
       } else if (event == grp::event::right_pressed) {
-        worm_direction = 0.f;
-        worm_pos[0] += speed_x;
+        fly_direction = 0.f;
+        fly_pos[0] += speed_x;
       } else if (event == grp::event::scalep_pressed) {
-        worm_scale[0] += 0.1;
-        worm_scale[1] += 0.1;
+        fly_scale[0] += 0.1;
+        fly_scale[1] += 0.1;
       } else if (event == grp::event::scalem_pressed) {
-        worm_scale[0] -= 0.1;
-        worm_scale[1] -= 0.1;
+        fly_scale[0] -= 0.1;
+        fly_scale[1] -= 0.1;
       } else if (event == grp::event::up_pressed) {
-        worm_direction = 0.f;
-        worm_pos[1] += speed_y;
+        fly_direction = pi / 2.f;
+        fly_pos[1] += speed_y;
       } else if (event == grp::event::down_pressed) {
-        worm_direction = pi / 2.f;
-        worm_pos[1] -= speed_y;
+        fly_direction = -pi / 2.f;
+        fly_pos[1] -= speed_y;
       } else if (event == grp::event::rotatel_pressed) {
-        worm_direction += 0.1f;
+        fly_direction += 0.1f;
       } else if (event == grp::event::rotater_pressed) {
-        worm_direction -= 0.1f;
+        fly_direction -= 0.1f;
       } else if (event == grp::event::turn_off) {
         continue_loop = false;
         break;
@@ -91,20 +91,20 @@ int main(int /*argc*/, char* /*argv*/[]) {
       1.f, 0.f, 0.f, 0.f, static_cast<float>(screen_width) / screen_height, 0.f, 0.f, 0.f, 1.f};
 
     const glm::mediump_mat3x3 scale_matrix {
-      worm_scale[0], 0.f, 0.f, 0.f, worm_scale[1], 0.f, 0.f, 0.f, 1.f};
+      fly_scale[0], 0.f, 0.f, 0.f, fly_scale[1], 0.f, 0.f, 0.f, 1.f};
 
-    const glm::mediump_mat3 rotation_matrix {std::cos(worm_direction),
-                                             std::sin(worm_direction),
+    const glm::mediump_mat3 rotation_matrix {std::cos(fly_direction),
+                                             std::sin(fly_direction),
                                              0.f,
-                                             -std::sin(worm_direction),
-                                             std::cos(worm_direction),
+                                             -std::sin(fly_direction),
+                                             std::cos(fly_direction),
                                              0.f,
                                              0.f,
                                              0.f,
                                              1.f};
 
     const glm::mediump_mat3x3 move_matrix {
-      1.f, 0.f, 0.f, 0.f, 1.f, 0.f, worm_pos[0], worm_pos[1], 1.f};
+      1.f, 0.f, 0.f, 0.f, 1.f, 0.f, fly_pos[0], fly_pos[1], 1.f};
 
     const glm::mediump_mat3 result_matrix =
       aspect_matrix * move_matrix * scale_matrix * rotation_matrix;

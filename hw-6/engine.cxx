@@ -8,6 +8,7 @@
 #include <chrono>
 #include <cmath>
 #include <exception>
+#include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -165,7 +166,6 @@ class opengl_texture : public texture {
         std::cerr << "error: " << error << std::endl;
         throw std::runtime_error("can't load texture");
       }
-      std::cout << sizeof(image) << std::endl;
 
       glGenTextures(1, &gl_texture_id);
       CHECK_OPENGL()
@@ -259,9 +259,9 @@ class engine_impl final : public engine {
       glBindVertexArray(vao);
       CHECK_OPENGL()
 
-      triangle_program.load_shader(GL_VERTEX_SHADER, "./triangle_vertex.shader");
-      triangle_program.load_shader(GL_FRAGMENT_SHADER, "./triangle_fragment.shader");
-      triangle_program.prepare_program();
+      // triangle_program.load_shader(GL_VERTEX_SHADER, "./triangle_vertex.shader");
+      // triangle_program.load_shader(GL_FRAGMENT_SHADER, "./triangle_fragment.shader");
+      // triangle_program.prepare_program();
       texture_program.load_shader(GL_VERTEX_SHADER, "./texture_vertex.shader");
       texture_program.load_shader(GL_FRAGMENT_SHADER, "./texture_fragment.shader");
       texture_program.prepare_program();
@@ -300,17 +300,6 @@ class engine_impl final : public engine {
       return false;
     }
 
-    bool is_key_down(const enum event key) final {
-      const auto it =
-        std::find_if(begin(keys), end(keys), [&](const bind& b) { return b.event_pressed == key; });
-
-      if (it != end(keys)) {
-        const std::uint8_t* state = SDL_GetKeyboardState(nullptr);
-        int sdl_scan_code = SDL_GetScancodeFromKey(it->key);
-        return state[sdl_scan_code];
-      }
-      return false;
-    }
     void render(const triangle& t) final {
       glEnableVertexAttribArray(0);
       CHECK_OPENGL()
@@ -384,7 +373,7 @@ class engine_impl final : public engine {
 
     void swap_buffers() final {
       SDL_GL_SwapWindow(window);
-      glClearColor(1.f, 1.f, 1.f, 0.0f);
+      glClearColor(1.f, 1.f, 1.f, .0f);
       CHECK_OPENGL()
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
       CHECK_OPENGL()
@@ -395,7 +384,8 @@ class engine_impl final : public engine {
       texture* r = new opengl_texture();
       r->load(path);
       std::cout << r << std::endl;
-      return new opengl_texture();
+      return r;
+      ;
     }
 
   private:
