@@ -425,17 +425,6 @@ void opengl_shader_program::load_shader(const GLenum shader_type,
   glGetShaderiv(shader_id, GL_COMPILE_STATUS, &shader_compiled);
   CHECK_OPENGL();
   if (!shader_compiled) {
-    GLint log_length {};
-    glGetShaderiv(shader_id, GL_INFO_LOG_LENGTH, &log_length);
-    CHECK_OPENGL();
-
-    if (log_length > 1) {
-      std::string log {};
-      log.resize(log_length);
-      glGetShaderInfoLog(shader_id, log_length, nullptr, log.data());
-      CHECK_OPENGL();
-    }
-
     glDeleteShader(shader_id);
     CHECK_OPENGL();
     throw std::runtime_error {"Error on compiling shader"};
@@ -474,17 +463,6 @@ void opengl_shader_program::link_program() const {
   CHECK_OPENGL();
 
   if (!linked) {
-    GLint log_length {};
-    glGetProgramiv(program_, GL_INFO_LOG_LENGTH, &log_length);
-    CHECK_OPENGL();
-
-    if (log_length > 1) {
-      std::string log {};
-      log.resize(log_length);
-      glGetProgramInfoLog(program_, log_length, nullptr, log.data());
-      CHECK_OPENGL();
-    }
-
     glDeleteProgram(program_);
     CHECK_OPENGL();
     throw std::runtime_error {"Error on linking shader program"};
@@ -500,18 +478,8 @@ void opengl_shader_program::validate_program() const {
   CHECK_OPENGL();
 
   if (!is_validated) {
-    GLint log_length {};
-    glGetProgramiv(program_, GL_INFO_LOG_LENGTH, &log_length);
-    CHECK_OPENGL();
-
-    if (log_length > 1) {
-      std::string log {};
-      log.resize(log_length);
-      glGetProgramInfoLog(program_, log_length, nullptr, log.data());
-      CHECK_OPENGL();
-    }
-
     glDeleteProgram(program_);
+    CHECK_OPENGL();
     throw std::runtime_error {"Error on validating shader program"};
   }
 }
